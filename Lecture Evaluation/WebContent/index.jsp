@@ -1,5 +1,23 @@
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	int intYear, intYearMin, intYearMax;
+	int intYearResult, intYearCount;
+	int intMonth;
+	int intDate;
+
+	List<String> yearList = new ArrayList();
+	Calendar now = Calendar.getInstance();
+
+	intYear = now.get(Calendar.YEAR);
+	intMonth = now.get(Calendar.MONTH);
+	intDate = now.get(Calendar.DATE);
+
+	intYearMin = now.get(Calendar.YEAR) - 5;
+	intYearMax = now.get(Calendar.YEAR) + 1;
+	intYearCount = intYearMax - intYearMin;
+%>
 <!doctype html>
 <html>
 <head>
@@ -208,38 +226,37 @@
 							<div class="form-group col-sm-4">
 								<label>수강 연도</label> <select name="lectureYear"
 									class="form-control">
-									<option value="2011">2011</option>
-									<option value="2012">2012</option>
-									<option value="2013">2013</option>
-									<option value="2014">2014</option>
-									<option value="2015">2015</option>
-									<option value="2016">2016</option>
-									<option value="2017">2017</option>
-									<option value="2018" selected>2018</option>
-									<option value="2019">2019</option>
-									<option value="2020">2020</option>
-									<option value="2021">2021</option>
-									<option value="2022">2022</option>
-									<option value="2023">2023</option>
+									<option value="">연도 선택</option>
+									<%
+										intYearResult = intYearMin;
+										for (int inx = 0; intYearResult <= intYearMax; inx++) {
+									%>
+									<option value=<%=intYearResult%>
+										<%if (intYear == intYearResult) {%> selected="selected" <%}%>><%=intYearResult%>
+									</option>
+									<%
+										String.valueOf(intYearResult++);
+										}
+									%>
 								</select>
 							</div>
 
 							<div class="form-group col-sm-4">
 								<label>수강 학기</label> <select name="semesterDivide"
 									class="form-control">
-									<option name="1학기" selected>1학기</option>
-									<option name="여름학기">여름학기</option>
-									<option name="2학기">2학기</option>
-									<option name="겨울학기">겨울학기</option>
+									<option value="1학기" selected>1학기</option>
+									<option value="여름학기">여름학기</option>
+									<option value="2학기">2학기</option>
+									<option value="겨울학기">겨울학기</option>
 								</select>
 							</div>
 
 							<div class="form-group col-sm-4">
 								<label>강의 구분</label> <select name="lectureDivide"
 									class="form-control">
-									<option name="전공" selected>전공</option>
-									<option name="교양">교양</option>
-									<option name="기타">기타</option>
+									<option value="전공" selected>전공</option>
+									<option value="교양">교양</option>
+									<option value="기타">기타</option>
 								</select>
 							</div>
 						</div>
