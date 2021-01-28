@@ -1,23 +1,9 @@
-<%@page import="java.util.*"%>
+<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	int intYear, intYearMin, intYearMax;
-	int intYearResult, intYearCount;
-	int intMonth;
-	int intDate;
+<%@page import="java.util.*"%>
+<%@page import="user.UserDAO"%>
 
-	List<String> yearList = new ArrayList();
-	Calendar now = Calendar.getInstance();
-
-	intYear = now.get(Calendar.YEAR);
-	intMonth = now.get(Calendar.MONTH);
-	intDate = now.get(Calendar.DATE);
-
-	intYearMin = now.get(Calendar.YEAR) - 5;
-	intYearMax = now.get(Calendar.YEAR) + 1;
-	intYearCount = intYearMax - intYearMin;
-%>
 <!doctype html>
 <html>
 <head>
@@ -35,6 +21,36 @@
 </head>
 
 <body>
+	<%
+		int intYear, intYearMin, intYearMax;
+		int intYearResult, intYearCount;
+		int intMonth;
+		int intDate;
+
+		List<String> yearList = new ArrayList();
+		Calendar now = Calendar.getInstance();
+
+		intYear = now.get(Calendar.YEAR);
+		intMonth = now.get(Calendar.MONTH);
+		intDate = now.get(Calendar.DATE);
+
+		intYearMin = now.get(Calendar.YEAR) - 5;
+		intYearMax = now.get(Calendar.YEAR) + 1;
+		intYearCount = intYearMax - intYearMin;
+		
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String) session.getAttribute("userID");
+		}
+		if(userID == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인을 해주세요.');");
+			script.println("location.href = 'userLogin.jsp'");
+			script.println("</script>");
+			script.close();	
+		}
+	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
 
